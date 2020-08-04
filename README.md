@@ -1,7 +1,6 @@
 # Sample data filtering
 Vue CLI, VUEX
-
-https://github.com/lowweb/data-multiple-filter/blob/master/preview.png
+![alt text](https://github.com/lowweb/data-multiple-filter/blob/master/preview.png?raw=true)
 
 ## Project setup
 ```
