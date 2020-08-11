@@ -1,5 +1,6 @@
-# Sample data filtering
+# Multiple data filtering (VUE + JS, no additional plugin)
 https://data-multiple-filter.vercel.app/
+
 
 ## Project setup
 ```
