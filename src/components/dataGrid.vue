@@ -67,7 +67,7 @@ export default {
                       .toLowerCase()
                       .indexOf(searchQuery) > -1
                   )
-				})
+								})
               })
 			}
 			
@@ -82,7 +82,7 @@ export default {
 			})
 
 			//max min 
-			if (minMax["min"] && minMax["max"] && minMax["field"]) {
+			if (minMax["min"]>=0 && minMax["max"]>=0 && minMax["field"]) {
 				data = data.filter((res) => {
 					return ( res[minMax["field"]] >= minMax["min"] && res[minMax["field"]] <= minMax["max"] )
 				})
@@ -105,67 +105,70 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 
 .data-grid {
   font-family: inherit;
   border-collapse: collapse;
-  width: 100%;
+
+
+	& thead {
+		background-color: #5ebdb9;
+	  color: #ffffff;
+	}
+	
+	& thead th {
+	  text-align: left;
+	 }
+	
+	& tbody td:last-child {
+	  text-align: center;
+	}
+	& td, th {
+	  border: 1px solid #f3f3f3;
+	  text-align: left;
+	  padding: 8px;
+	}
+	& td:last-child, th:last-child {
+	    min-width: 80px;
+	  }
+	
+	& tr:nth-child(even) {
+	  background-color: #f3f3f3;
+	}
+	
+	
+	&--noresult {
+		color: #c1c1c1;
+	    font-weight: normal;
+	    text-align: center;
+	}
+	
+	
+	&__head-arrow {
+	  display: inline-block;
+	  vertical-align: middle;
+	  width: 0;
+	  height: 0;
+	  margin-left: auto;
+	  opacity: 0;
+	}
+	
+	&__head-arrow.asc {
+	  opacity: 1;
+	  border-left: 4px solid transparent;
+	  border-right: 4px solid transparent;
+	  border-bottom: 4px solid #fff;
+	}
+	
+	&__head-arrow.dsc {
+	  opacity: 1;	
+	  border-left: 4px solid transparent;
+	  border-right: 4px solid transparent;
+	  border-top: 4px solid #fff;
+	}
+
 }
 
-.data-grid thead {
-	background-color: #5ebdb9;
-  color: #ffffff;
-}
 
-.data-grid thead th {
-  text-align: left;
- }
-
-.data-grid tbody td:last-child {
-  text-align: center;
-}
-.data-grid td, th {
-  border: 1px solid #f3f3f3;
-  text-align: left;
-  padding: 8px;
-}
-.data-grid td:last-child, th:last-child {
-    min-width: 80px;
-  }
-
-.data-grid tr:nth-child(even) {
-  background-color: #f3f3f3;
-}
-
-
-.data-grid--noresult {
-	color: #c1c1c1;
-    font-weight: normal;
-    text-align: center;
-}
-
-
-.data-grid__head-arrow {
-  display: inline-block;
-  vertical-align: middle;
-  width: 0;
-  height: 0;
-  margin-left: auto;
-  opacity: 0;
-}
-
-.data-grid__head-arrow.asc {
-  opacity: 1;
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-bottom: 4px solid #fff;
-}
-
-.data-grid__head-arrow.dsc {
-  opacity: 1;	
-  border-left: 4px solid transparent;
-  border-right: 4px solid transparent;
-  border-top: 4px solid #fff;
-}
 </style>

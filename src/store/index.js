@@ -180,12 +180,6 @@ export default new Vuex.Store ({
         queryChange (state, text) {
             state.query = text.trim()
         },
-        minChange (state, val) {
-          state.min = val
-       },
-        maxChange (state, val) {
-         state.min = val
-       },
         addToFilterArr (state, payload) {
           Vue.set(state.filterArr, payload.colName , payload.selectedItms)
         },
@@ -194,21 +188,10 @@ export default new Vuex.Store ({
           Vue.set(state.minMaxArr, 'min' , payload.minVal)
           Vue.set(state.minMaxArr, 'max' , payload.maxVal)
         },
-        setMin (state, value) {
-          Vue.set(state.minMaxArr, 'min' , value)
-        },
-        setMax (state, value) {
-          Vue.set(state.minMaxArr, 'max' , value)
-        },
         resetDef (state) {
           state.query = ''
           state.filterArr = {}
           state.minMaxArr = {}
-          // let max = Math.max(...state.cars.map( (element) => {
-          //   return Math.ceil(element['price'])
-          // }));
-          //  Vue.set(state.minMaxArr, 'min' , 0)
-          //   Vue.set(state.minMaxArr, 'max' , max)
         }
     },
 })

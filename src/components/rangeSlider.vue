@@ -47,8 +47,8 @@ export default {
   		MAX_INPUT: Number, //
   		min: Number, //
   		max: Number, //
-		handleWidth: Number,
-		mousePos: Number,
+			handleWidth: Number,
+			mousePos: Number,
 	  }},
 
  	
@@ -90,15 +90,16 @@ export default {
 	methods: {
 		dragLeft () {
 			// event = event.changedTouches ? event.changedTouches[0] : event
-			this.dragging = true;
+			  this.dragging = true;
 		    window.addEventListener('mouseup', this.stopDrag);
 	    	window.addEventListener('mousemove', this.moveLeft);
 	    	window.addEventListener('touchend',this.stopDrag);
-	    	window.addEventListener('touchmove',this.moveLeft);
+				window.addEventListener('touchmove',this.moveLeft);
+				console.log('left')
 		},
 	    dragRight() {	
-	      	this.dragging = true;
-	        window.addEventListener('mouseup', this.stopDrag);
+	      this.dragging = true;
+	      window.addEventListener('mouseup', this.stopDrag);
     		window.addEventListener('mousemove', this.moveRight);
     		window.addEventListener('touchend',this.stopDrag);
 	    	window.addEventListener('touchmove',this.moveRight);
@@ -111,21 +112,34 @@ export default {
     		window.removeEventListener('mousemove', this.moveLeft);
     		window.removeEventListener('mousemove', this.moveRight);
     		window.removeEventListener('touchmove',this.moveLeft);
-			window.removeEventListener('touchmove',this.moveRight);
-			this.$store.commit('setMinMax', { "field":this.rangeName, "minVal": this.min, "maxVal": this.max })	
+			  window.removeEventListener('touchmove',this.moveRight);
+			  this.$store.commit('setMinMax', { "field":this.rangeName, "minVal": Number(this.min), "maxVal": Number(this.max) })	
 	    },
 
 	    moveLeft(event) { 	
-	      	if (this.dragging) {
-			var xMousePos = parseInt(event.clientX);	
+				
+	    if (this.dragging) {
+						
+			console.log(event)			
+			// if(event.touches[0].length) {
+			// 	console.log('dsada')
+			// 	// event= event.touches[0]
+			// }
+			let xMousePos = parseInt(event.clientX);	
+			// console.log("m" + xMousePos);
+			// 			console.log(this.containerPos);
+			// 			console.log(this.handleWidth/2);
+			// 			console.log("cw=" + this.containerWidth);
+
 	        this.positionLHandle = (xMousePos - this.containerPos + this.handleWidth/2) * 100 / this.containerWidth;
 
 			if (this.positionLHandle < 0) {
 				this.positionLHandle = 0
 				this.min = this.MIN_INPUT
 			}
-			
+					// console.log(this.positionLHandle)
 	        if ( (this.positionLHandle >= 0) && (this.positionLHandle <= this.positionRHandle)) {
+						console.log('dr')
 	        	this.handleLeftStyle.left = this.positionLHandle  + '%'
 	    		this.rangeStyle.left = this.positionLHandle  + '%'
 				this.rangeStyle.width = this.positionRHandle - this.positionLHandle  + '%'
@@ -183,7 +197,7 @@ export default {
 			this.handleLeftStyle.left = this.positionLHandle  + '%'
 			this.rangeStyle.left = this.positionLHandle  + '%'
 	    	this.rangeStyle.width = this.positionRHandle - this.positionLHandle  + '%'	
-			this.$store.commit('setMinMax', { "field":this.rangeName, "minVal": this.min, "maxVal": this.max })	
+			this.$store.commit('setMinMax', { "field":this.rangeName, "minVal": Number(this.min), "maxVal": Number(this.max) })	
    
 		},
 
@@ -204,78 +218,68 @@ export default {
 
 			this.handleRightStyle.left = this.positionRHandle  + '%'
 	    	this.rangeStyle.width = this.positionRHandle - this.positionLHandle  + '%'	
-			this.$store.commit('setMinMax', { "field":this.rangeName, "minVal": this.min, "maxVal": this.max })	
+			this.$store.commit('setMinMax', { "field":this.rangeName, "minVal": Number(this.min), "maxVal": Number(this.max) })	
 		},
 		
 		},
 }
 </script>
 
-<style scoped>
-
-
+<style scoped lang="scss">
 .range {
 	position: relative;
     display: flex;
     flex-wrap: wrap;
    	justify-content: space-between;
     margin-bottom: 20px;
-}
 
-.range fieldset {
-	width: 47%;
-	margin-bottom: 30px;
+		& fieldset {
+			width: 47%;
+			margin-bottom: 30px;
+		}
 }
-
 
 .slider {
-			display: block;
-			margin: 0 auto;
-			width: calc(100% - 40px);
-			height: 3px;
-			background-color: #dad7de;
-			position: relative;
+		display: block;
+		margin: 0 auto;
+		width: calc(100% - 40px);
+		height: 3px;
+		background-color: #dad7de;
+		position: relative;
 
+		&__handle {
+			position: absolute;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 25px;
+			height: 25px;
+		  background-color: #ffffff;
+			border-radius: 50%;
+			top: 50%;
+		  transform: translate(0%, -50%);
+		  opacity: 1;
+		  transition: height 0.1s, width 0.1s, border 0.2s;
+		  z-index: 2;
+		  border: 2px solid #845bc5;
+
+			&:hover  {
+  			width: 27px;
+  			height: 27px;
+  			border: 2px solid #370080;
+ 			}
+
+			&-l {
+  			transform: translate(-100%, -50%);
+			}
 		}
 
-.slider__handle {
-	position: absolute;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	width: 25px;
-	height: 25px;
-  background-color: #ffffff;
-	border-radius: 50%;
-	top: 50%;
-  transform: translate(0%, -50%);
-  opacity: 1;
-  transition: height 0.1s, width 0.1s, border 0.2s;
-  z-index: 2;
-  border: 2px solid #845bc5;
- }
-
- .slider__handle:hover  {
-  width: 27px;
-  height: 27px;
-  border: 2px solid #370080;
-
- }
-
-.slider__handle-l {
-  transform: translate(-100%, -50%);
+		&__range {
+			position: absolute;
+			height: 100%;
+			background-color: #97e0dd;
+			width: 100%;
+		}
 }
-
-
-
- .slider__range {
-	position: absolute;
-	height: 100%;
-	background-color: #97e0dd;
-	width: 100%;
-}
-
-
-
 
 </style>

@@ -35,7 +35,6 @@ export default {
 	created() {
     	this.resetDefSubscribe = this.$store.subscribe((mutation) => {
     	  if (mutation.type === 'resetDef') {
-    	    // console.log(`Updating to ${state.filterArr}`);
 			this.selectedItems = []
 			this.countItems = 0
     	  }
@@ -47,62 +46,60 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .filter {
-  /*border: 1px dotted #c7c7c7;*/
-  /*padding: 10px 20px;*/
   margin-bottom: 10px;
+
+	&__group {
+	  max-width: 300px;
+	  overflow: hidden;
+	  overflow-y: scroll;
+	}
+
+	&__title {
+	  display: flex;
+	  align-items: center;
+	  justify-content: center;
+	  padding: 8px;
+	  background-color: #ffe255;
+	}
+
+	&__group-count {
+	  font-size: 12px;
+	  text-align: center;
+	  margin-top: 10px;
+	  color: #636262;
+	  background-color: #eaeaea;
+	  padding: 5px 0;
+	}
+
+	&__item {
+	    display: flex;
+	    flex-direction: row;
+	    align-items: flex-start;
+	    padding: 3px 5px;
+	    margin: 3px 0;
+	}
+
+	&__item-lb{
+	    font-size: 12px;
+	    color:#0073BE;
+	    display: flex;
+	    align-items: flex-start;
+	}
+
+	&__item-lb:hover {
+	  cursor: pointer;
+	}
+
+
+
+	&__chk {
+	  margin: 0px 7px 0px 0px;
+	  font-size: 16px;
+	  flex: 0 0 auto;
+	}
 }
 
-.filter__group {
-  max-width: 300px;
-  /* height: 200px; */
-  overflow: hidden;
-  overflow-y: scroll;
-}
-
-.filter__title {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 8px;
-  background-color: #ffe255;
-}
-
-.filter__group-count {
-  font-size: 12px;
-  text-align: center;
-  margin-top: 10px;
-  color: #636262;
-  background-color: #eaeaea;
-  padding: 5px 0;
-}
-
-.filter__item {
-    display: flex;
-    flex-direction: row;
-    align-items: flex-start;
-    padding: 3px 5px;
-    margin: 3px 0;
-}
-
-.filter__item-lb{
-    font-size: 12px;
-    color:#0073BE;
-    display: flex;
-    align-items: flex-start;
-}
-
-.filter__item-lb:hover {
-  cursor: pointer;
-}
-
-
-
-.filter__chk {
-  margin: 0px 7px 0px 0px;
-  font-size: 16px;
-  flex: 0 0 auto;
-}
 
 </style>
