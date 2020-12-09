@@ -90,20 +90,18 @@ export default {
 	methods: {
 		dragLeft () {
 			// event = event.changedTouches ? event.changedTouches[0] : event
-			  this.dragging = true;
-		    window.addEventListener('mouseup', this.stopDrag);
+			this.dragging = true;
+			window.addEventListener('mouseup', this.stopDrag);
 	    	window.addEventListener('mousemove', this.moveLeft);
 	    	window.addEventListener('touchend',this.stopDrag);
-				window.addEventListener('touchmove',this.moveLeft);
-				console.log('left')
+			window.addEventListener('touchmove',this.moveLeft);
 		},
 	    dragRight() {	
-	      this.dragging = true;
-	      window.addEventListener('mouseup', this.stopDrag);
+	    	this.dragging = true;
+	    	window.addEventListener('mouseup', this.stopDrag);
     		window.addEventListener('mousemove', this.moveRight);
     		window.addEventListener('touchend',this.stopDrag);
 	    	window.addEventListener('touchmove',this.moveRight);
-
 	    },
 	    stopDrag() {
 	    	this.dragging = false;
@@ -112,70 +110,62 @@ export default {
     		window.removeEventListener('mousemove', this.moveLeft);
     		window.removeEventListener('mousemove', this.moveRight);
     		window.removeEventListener('touchmove',this.moveLeft);
-			  window.removeEventListener('touchmove',this.moveRight);
-			  this.$store.commit('setMinMax', { "field":this.rangeName, "minVal": Number(this.min), "maxVal": Number(this.max) })	
+			window.removeEventListener('touchmove',this.moveRight);
+			this.$store.commit('setMinMax', { "field":this.rangeName, "minVal": Number(this.min), "maxVal": Number(this.max) })	
 	    },
 
 	    moveLeft(event) { 	
 				
 	    if (this.dragging) {
-						
-			console.log(event)			
-			// if(event.touches[0].length) {
-			// 	console.log('dsada')
-			// 	// event= event.touches[0]
-			// }
-			let xMousePos = parseInt(event.clientX);	
-			// console.log("m" + xMousePos);
-			// 			console.log(this.containerPos);
-			// 			console.log(this.handleWidth/2);
-			// 			console.log("cw=" + this.containerWidth);
+				event = event.changedTouches ? event.changedTouches[0] : event			
+				let xMousePos = event.clientX
 
-	        this.positionLHandle = (xMousePos - this.containerPos + this.handleWidth/2) * 100 / this.containerWidth;
+	        	this.positionLHandle = (xMousePos - this.containerPos + this.handleWidth/2) * 100 / this.containerWidth;
 
-			if (this.positionLHandle < 0) {
-				this.positionLHandle = 0
-				this.min = this.MIN_INPUT
-			}
-					// console.log(this.positionLHandle)
-	        if ( (this.positionLHandle >= 0) && (this.positionLHandle <= this.positionRHandle)) {
-						console.log('dr')
-	        	this.handleLeftStyle.left = this.positionLHandle  + '%'
-	    		this.rangeStyle.left = this.positionLHandle  + '%'
-				this.rangeStyle.width = this.positionRHandle - this.positionLHandle  + '%'
-				this.min = Math.round((this.positionLHandle <= 0 ? this.MIN_INPUT :  (this.DIFF_MINMAX * this.positionLHandle/100)),2)
-			
-			}
-			
-			if ( this.positionLHandle > this.positionRHandle) {
-				this.positionLHandle = this.positionRHandle - (this.handleWidth * 100 / this.containerWidth)
-				this.handleLeftStyle.left = this.positionRHandle + '%'
-				this.rangeStyle.width = '0%'
-				this.min = this.max
-			}
+				if (this.positionLHandle < 0) {
+					this.positionLHandle = 0
+					this.min = this.MIN_INPUT
+				}
+						// console.log(this.positionLHandle)
+	        	if ( (this.positionLHandle >= 0) && (this.positionLHandle <= this.positionRHandle)) {
+							console.log('dr')
+	        		this.handleLeftStyle.left = this.positionLHandle  + '%'
+	    			this.rangeStyle.left = this.positionLHandle  + '%'
+					this.rangeStyle.width = this.positionRHandle - this.positionLHandle  + '%'
+					this.min = Math.round((this.positionLHandle <= 0 ? this.MIN_INPUT :  (this.DIFF_MINMAX * this.positionLHandle/100)),2)
+
+				}
+
+				if ( this.positionLHandle > this.positionRHandle) {
+					this.positionLHandle = this.positionRHandle - (this.handleWidth * 100 / this.containerWidth)
+					this.handleLeftStyle.left = this.positionRHandle + '%'
+					this.rangeStyle.width = '0%'
+					this.min = this.max
+				}
 	      }
 	    },
 	    moveRight(event) {
-	    	// event = event.changedTouches ? event.changedTouches[0] : event
 	      	if (this.dragging) {
-			var xMousePos = event.clientX;
-			this.mousePos = xMousePos
-			this.positionRHandle = (xMousePos - this.containerPos - this.handleWidth/2) * 100 / this.containerWidth;
 			
-			if (this.positionRHandle > 100) this.positionRHandle = 100;
-			
-	        if (this.positionRHandle > this.positionLHandle && this.positionRHandle <= 100){
-	        	this.handleRightStyle.left = this.positionRHandle + '%'
-	    		this.rangeStyle.width = this.positionRHandle - this.positionLHandle  + '%'
-	    		this.max = Math.round((this.positionRHandle >= 100 ? this.MAX_INPUT :(this.DIFF_MINMAX * this.positionRHandle/100)),2)
-			}
+				event = event.changedTouches ? event.changedTouches[0] : event			
+				let xMousePos = event.clientX
 
-			if (this.positionRHandle <= this.positionLHandle) {
-				this.positionRHandle = this.positionLHandle + (this.handleWidth* 100 / this.containerWidth)
-				this.handleRightStyle.left = this.positionLHandle + '%'
-				this.rangeStyle.width = '0%'
-				this.max = this.min
-			}
+				this.positionRHandle = (xMousePos - this.containerPos - this.handleWidth/2) * 100 / this.containerWidth;
+
+				if (this.positionRHandle > 100) this.positionRHandle = 100;
+
+	    	    if (this.positionRHandle > this.positionLHandle && this.positionRHandle <= 100){
+	    	    	this.handleRightStyle.left = this.positionRHandle + '%'
+	    			this.rangeStyle.width = this.positionRHandle - this.positionLHandle  + '%'
+	    			this.max = Math.round((this.positionRHandle >= 100 ? this.MAX_INPUT :(this.DIFF_MINMAX * this.positionRHandle/100)),2)
+				}
+
+				if (this.positionRHandle <= this.positionLHandle) {
+					this.positionRHandle = this.positionLHandle + (this.handleWidth* 100 / this.containerWidth)
+					this.handleRightStyle.left = this.positionLHandle + '%'
+					this.rangeStyle.width = '0%'
+					this.max = this.min
+				}
 	      }
 	    },
 

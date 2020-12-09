@@ -130,7 +130,6 @@ body {
     height: 0%;
     width: 100%;
     position: fixed;
-    z-index: 1;
     top: 50px;
     left: 0;
     background-color: #ffffff;
@@ -142,6 +141,17 @@ body {
     &--open {
       overflow-y: scroll;
       height: 75%;
+
+      // &::after{
+      //   content: '';
+      //   position: fixed;
+      //   z-index: 1;
+      //   left: 0;
+      //   top: 0;
+      //   width: 100%;
+      //   height: 100%;
+      //   background-color: rgba(0,0,0,0.4);
+      // }
     }
   }
 
