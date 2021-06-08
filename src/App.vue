@@ -132,6 +132,7 @@ body {
 .data-grid {
   flex: 1;
   width: 100%;
+  height: fit-content; 
 }
 
 .btn {
